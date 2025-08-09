@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Wealth Technology</title>
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(20,20,20,0.95)), url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+  }
+  header { padding: 40px 15px; }
+  header h1 {
+    font-size: 2.2em;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffdd00, #ff9900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header p { font-size: 1.1em; opacity: 0.9; }
+
+  .offer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 350px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+  }
+
+  .bonus-message {
+    font-size: 1em;
+    color: #00ff88;
+    font-weight: bold;
+  }
+
+  .btn-offer {
+    width: 100%;
+    padding: 15px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1em;
+    background: linear-gradient(135deg, #ffd200, #f7971e);
+    color: #111;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 221, 0, 0.6); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 221, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 221, 0, 0); }
+  }
+
+  .fomo {
+    font-size: 0.9em;
+    color: #ffdd00;
+    font-weight: bold;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: opacity 0.5s;
+  }
+
+  .reviews {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    transition: opacity 0.5s;
+  }
+  .review {
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .review img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ffdd00;
+  }
+
+  .lang-switch {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #fff;
+  }
+
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.8em; }
+    header p { font-size: 1em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="lang-switch" id="langSwitch">हिन्दी</div>
+
+<header>
+  <h1 data-en="Premium Technology for Unlimited Wealth"
+      data-hi="असीमित धन के लिए प्रीमियम तकनीक"></h1>
+  <p data-en="Trusted by thousands across India to change their future"
+     data-hi="भारत भर में हजारों लोगों द्वारा अपने भविष्य को बदलने के लिए भरोसा किया गया"></p>
+</header>
+
+<div class="offer-container">
+  <div class="bonus-message"
+       data-en="🎁 Bonus: ₹3333 after your first deposit!"
+       data-hi="🎁 बोनस: पहली जमा राशि के बाद ₹4,50,000!"></div>
+
+  <a id="startBtn" href="https://playtoplink.com/Ry3l9suc/" class="btn-offer"
+     data-en="🚀 Start Winning Now"
+     data-hi="🚀 अभी जीतना शुरू करें"></a>
+
+  <div class="fomo" id="fomoMsg"></div>
+</div>
+
+<div class="reviews" id="reviewsContainer"></div>
+
+<script>
+  const fomoMessages = {
+    en: [
+      "🔥 17 people joined in the last 10 minutes",
+      "💰 Rajesh just won ₹5,200",
+      "🎯 Kavita doubled her money in 2 days",
+      "🚀 3 spots taken in the last minute",
+      "💎 Arjun just withdrew ₹10,000"
+    ],
+    hi: [
+      "🔥 पिछले 10 मिनट में 17 लोग शामिल हुए",
+      "💰 राजेश ने अभी ₹5,200 जीते",
+      "🎯 कविता ने 2 दिनों में अपना पैसा दोगुना किया",
+      "🚀 पिछले एक मिनट में 3 स्थान लिए गए",
+      "💎 अर्जुन ने अभी ₹10,000 निकाले"
+    ]
+  };
+
+  const reviewsList = {
+    en: [
+      {img: "https://randomuser.me/api/portraits/men/32.jpg", text: '<strong>Ravi Kumar</strong><br>"In just 3 days I doubled my savings. Incredible!" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/women/45.jpg", text: '<strong>Priya Sharma</strong><br>"Finally a platform I can trust. Thank you!" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/men/78.jpg", text: '<strong>Arjun Singh</strong><br>"Easy to use and life-changing results." ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/women/23.jpg", text: '<strong>Neha Verma</strong><br>"Got my bonus instantly after deposit!" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/men/56.jpg", text: '<strong>Amit Patel</strong><br>"Best decision I made this year." ⭐⭐⭐⭐⭐'}
+    ],
+    hi: [
+      {img: "https://randomuser.me/api/portraits/men/32.jpg", text: '<strong>रवि कुमार</strong><br>"सिर्फ 3 दिनों में मैंने अपनी बचत को दोगुना कर लिया। अविश्वसनीय!" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/women/45.jpg", text: '<strong>प्रिया शर्मा</strong><br>"आखिरकार एक ऐसा प्लेटफॉर्म जिस पर मैं भरोसा कर सकती हूँ। धन्यवाद!" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/men/78.jpg", text: '<strong>अर्जुन सिंह</strong><br>"आसानी से उपयोग करें और जीवन बदलने वाले परिणाम पाएं।" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/women/23.jpg", text: '<strong>नेहा वर्मा</strong><br>"जमा करने के बाद तुरंत बोनस मिला!" ⭐⭐⭐⭐⭐'},
+      {img: "https://randomuser.me/api/portraits/men/56.jpg", text: '<strong>अमित पटेल</strong><br>"इस साल का सबसे अच्छा फैसला।" ⭐⭐⭐⭐⭐'}
+    ]
+  };
+
+  function setLanguage(lang) {
+    document.querySelectorAll("[data-en]").forEach(el => {
+      el.innerHTML = el.getAttribute(`data-${lang}`);
+    });
+    document.getElementById("langSwitch").textContent = lang === "en" ? "हिन्दी" : "English";
+    localStorage.setItem("siteLang", lang);
+    currentLang = lang;
+  }
+
+  let currentLang = localStorage.getItem("siteLang") || 
+                   (navigator.language.startsWith("hi") ? "hi" : "en");
+  setLanguage(currentLang);
+
+  document.getElementById("langSwitch").addEventListener("click", () => {
+    currentLang = currentLang === "en" ? "hi" : "en";
+    setLanguage(currentLang);
+    updateFomo();
+    updateReviews();
+  });
+
+  const fomoElement = document.getElementById("fomoMsg");
+  let fomoIndex = 0;
+  function updateFomo() {
+    fomoElement.style.opacity = 0;
+    setTimeout(() => {
+      fomoElement.textContent = fomoMessages[currentLang][fomoIndex];
+      fomoElement.style.opacity = 1;
+      fomoIndex = (fomoIndex + 1) % fomoMessages[currentLang].length;
+    }, 500);
+  }
+  updateFomo();
+  setInterval(updateFomo, 5000);
+
+  const reviewsContainer = document.getElementById("reviewsContainer");
+  function updateReviews() {
+    reviewsContainer.style.opacity = 0;
+    setTimeout(() => {
+      const shuffled = [...reviewsList[currentLang]].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 4);
+      reviewsContainer.innerHTML = selected.map(r => 
+        `<div class="review"><img src="${r.img}" alt="User"><div>${r.text}</div></div>`
+      ).join("");
+      reviewsContainer.style.opacity = 1;
+    }, 500);
+  }
+  updateReviews();
+  setInterval(updateReviews, Math.floor(Math.random() * (15000 - 7000) + 7000));
+</script>
+</body>
+</html>
